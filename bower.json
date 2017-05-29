@@ -1,0 +1,20 @@
+{
+  "name": "moocNg",
+  "authors": [
+    "baymaxxx <81243232@qq.com>"
+  ],
+  "description": "ng",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.8"
+  }
+}
