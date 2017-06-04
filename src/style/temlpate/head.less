@@ -1,0 +1,23 @@
+@import "../variable.less";
+
+.head{
+  position: relative;
+  padding:0 7px;
+  height: 40px;
+  line-height:40px;
+  background-color: @headBgColor;
+  .text{
+    color: @defaultColor;
+  }
+  .custom{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding:3px 10px;
+    background-color: @warnColor;
+    color: @defaultColor;
+    border:1px dashed @warnColor;/*no*/
+  }
+}
+

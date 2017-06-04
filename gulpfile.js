@@ -4,6 +4,8 @@
 var gulp = require('gulp')
 var $ = require('gulp-load-plugins')()
 var open = require('open')
+var postcss = require('gulp-postcss')
+var px2rem = require('postcss-px2rem')
 
 var app = {
   srcPath: 'src/',
@@ -33,13 +35,21 @@ gulp.task('json',function () {
 })
 
 gulp.task('less',function () {
-  gulp.src(app.srcPath + 'style/index.less')
+  return gulp.src(app.srcPath + 'style/**/*.less')
     .pipe($.less())
+    .pipe(gulp.dest(app.srcPath + 'style'))
+    .pipe($.connect.reload())
+})
+
+gulp.task('px2rem',['less'], function() {
+  var processors = [px2rem({remUnit: 37.5})];
+  return gulp.src(app.srcPath + 'style/*.css')
+    .pipe(postcss(processors))
     .pipe(gulp.dest(app.devPath + 'css'))
     .pipe($.cssmin())
     .pipe(gulp.dest(app.prdPath + 'css'))
     .pipe($.connect.reload())
-})
+});
 
 gulp.task('js',function () {
   gulp.src(app.srcPath + 'script/**/*.js')
@@ -58,10 +68,10 @@ gulp.task('image',function () {
     .pipe($.connect.reload())
 })
 
-gulp.task('build',['image','js','less','json','html','lib'])
+gulp.task('build',['image','js','json','html','lib','px2rem'])
 
 gulp.task('clean',function () {
-  gulp.src([app.devPath,app.prdPath])
+  gulp.src([app.devPath,app.prdPath,app.srcPath + '/style/*.css'])
     .pipe($.clean())
 })
 
@@ -75,8 +85,9 @@ gulp.task('server',['build'],function () {
   gulp.watch(app.srcPath + 'script/**/*.js',['js'])
   gulp.watch(app.srcPath + '**/*.html',['html'])
   gulp.watch(app.srcPath + 'data/**/*.json',['json'])
-  gulp.watch(app.srcPath + 'style/index.less',['less'])
+  gulp.watch(app.srcPath + 'style/**/*.less',['less'])
   gulp.watch(app.srcPath + 'image/**/*',['image'])
+  gulp.watch(app.srcPath + 'style/*',['px2rem'])
   gulp.watch('bower_components/**/*.js',['lib'])
 })
 
