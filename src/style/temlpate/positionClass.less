@@ -1,0 +1,33 @@
+@import "../variable.less";
+.position-class{
+  padding: 13px 9px;
+  border-top:1px solid @lineColor;
+  background-color: @defaultColor;
+  h5{
+    margin-bottom: 7px;
+  }
+  button{
+    padding:5px 23px;
+    border-radius: 10px;
+    background-color: @btnColor;
+    &.active{
+      background-color: @headBgColor;
+      color: @defaultColor;
+    }
+  }
+  ul{
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top:1px solid @lineColor;
+    li{
+      p{
+        line-height: 30px;
+      }
+    }
+  }
+  .money{
+    color: @dangerColor;
+    right:10px;
+    top: 15px;
+  }
+}
