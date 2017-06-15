@@ -3,6 +3,9 @@
  */
 "use strict"
 
-app.controller('positionCtrl',['$scope',function ($scope) {
-
+app.controller('positionCtrl',['$http','$state','$scope',function ($http,$state,$scope) {
+  $http.get('/data/position.json?id=' + $state.params.id).success(function (res) {
+    $scope.position = res;
+    console.log($scope.position.name)
+  })
 }])
